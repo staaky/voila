@@ -1,6 +1,6 @@
 # Voilà
 
-Voilà is a jQuery plugin that provides callbacks for images, letting you know when they've loaded.
+Voilà is a [jQuery](http://jquery.com) plugin that provides callbacks for images, letting you know when they've loaded.
 
 Its API is inspired by [imagesLoaded](http://imagesloaded.desandro.com). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
 
