@@ -2,7 +2,7 @@
 
 Voilà is a jQuery plugin that provides callbacks for images, letting you know when they've loaded.
 
-Its API is based on [imagesLoaded](http://imagesloaded.desandro.com). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
+Its API is inspired by [imagesLoaded](http://imagesloaded.desandro.com). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
 
 Voilà also comes with an alternative loading method that allows callbacks to be used as soon as naturalWidth/Height are available, even while images are still rendering.
 
@@ -10,8 +10,8 @@ Voilà also comes with an alternative loading method that allows callbacks to be
 
 Get a packaged source file:
 
-+ [voila.pkgd.js](http://github.com/staaky/voila/voila.pkgd.js)
-+ [voila.pkgd.min.js](http://github.com/staaky/voila/voila.pkgd.min.js)
++ [voila.pkgd.js](https://raw.githubusercontent.com/staaky/voila/master/voila.pkgd.js)
++ [voila.pkgd.min.js](https://raw.githubusercontent.com/staaky/voila/master/voila.pkgd.min.js)
 
 Include Voilà below jQuery:
 
@@ -62,7 +62,7 @@ $('#container').voila()
 
 ## Options
 
-Options can be set as the second parameter.
+Options can be set as the first parameter.
 
 + `render` - _Boolean_ - Wait for images to fully render before using callbacks when `true` (the default), or as soon as naturalWidth/Height are available when `false`. Using `false` means images could still be rendering as callbacks are called.
 
@@ -106,6 +106,10 @@ $('#container').voila(function(instance) {
   });
 });
 ```
+
+## License
+
+Voilà is [MIT Licensed](https://raw.githubusercontent.com/staaky/voila/master/LICENSE.txt).
 
 * * *
 
