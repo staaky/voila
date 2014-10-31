@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.0
+ * Voilà - v1.0.1
  * (c) 2014 Nick Stakenburg
  *
  * MIT License

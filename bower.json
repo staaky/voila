@@ -1,6 +1,6 @@
 {
   "name": "voila",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
   "keywords": [
     "image",
@@ -9,7 +9,8 @@
     "loaded",
     "imagesloaded",
     "callback",
-    "callbacks"
+    "callbacks",
+    "voila"
   ],
   "main": "voila.pkgd.js",
   "ignore": [
@@ -20,6 +21,7 @@
     "/.*",
     "bower.json",
     "Gruntfile.js",
+    "LICENSE.txt",
     "package.json",
     "README.md"
   ],
