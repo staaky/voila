@@ -1,0 +1,29 @@
+{
+  "name": "voila",
+  "title": "Voil&agrave;",
+  "version": "1.0.0",
+  "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
+  "keywords": [
+    "image",
+    "images",
+    "loading",
+    "loaded",
+    "imagesloaded",
+    "callback",
+    "callbacks"
+  ],
+  "author": {
+    "name": "Nick Stakenburg",
+    "url": "http://nickstakenburg.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/staaky/voila.git"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-uglify": "~0.2.0"
+  }
+}

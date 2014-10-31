@@ -1,0 +1,129 @@
+html {
+  background: #fff;
+  font-size: 100%;
+  min-height: 100%;
+  width: 100%;
+  margin-bottom: 1px;
+  overflow: -moz-scrollbars-vertical !important;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  font: 18px/32px Georgia, Times, "Times New Roman", serif;
+  color: #333;
+}
+
+body { padding: 10px; }
+
+#progress {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: #232323;
+  background: rgba(0,0,0,.8);
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+}
+.lt-ie9 #progress { display: none; }
+
+.controls,
+.buttons,
+.checkboxes {
+  float: left;
+}
+.controls {
+  clear: both;
+  margin-bottom: 20px;
+}
+
+button {
+  float: left;
+  font-family: Georgia, Times, "Times New Roman", serif;
+  font-size: 18px;
+  line-height: 24px;
+  padding: 10px 12px;
+  margin: 0 5px 5px 0;
+}
+
+.checkboxes {
+  padding: 11px 13px;
+  font-size: 18px;
+  line-height: 24px;
+  margin: 2px;
+  clear: none;
+}
+.checkboxes label,
+.checkboxes input[type=checkbox] {
+  cursor: pointer;
+}
+.checkboxes label { margin-right: 8px; }
+
+
+#images {
+  float: left;
+  clear: both;
+  width: 100%;
+}
+#images img {
+  max-height: 150px;
+  height: 150px;
+  opacity: 1;
+  float: left;
+}
+
+#images div {
+  float: left;
+  height: 150px;
+  min-width: 100px;
+  margin: 0 5px 5px 0;
+  background-color: #000;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+#images div,
+#images img,
+#progress {
+  -webkit-transition: opacity .4s;
+  transition: opacity .4s;
+}
+#images .is-loading {
+  background-color: #000;
+  background-image: url('loading.gif');
+  width: 100px;
+}
+
+#images .is-broken {
+  background-color: #ca3434;
+  background-image: url('error.png');
+  width: 120px;
+}
+.lt-ie7 #images .is-broken { background-image: none; }
+
+#images .is-loading img,
+#images .is-broken img {
+  opacity: 0;
+}
+.lt-ie9 #images .is-loading img,
+.lt-ie9 #images .is-broken img { display: none; }
+
+.dimensions {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  background: #232323;
+  background: rgba(20,20,20,.8);
+  color: #dedede;
+  font-size: 11px;
+  line-height: 16px;
+  padding: 3px 5px;
+  border-radius: 4px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+}
