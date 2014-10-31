@@ -20,7 +20,13 @@ Include Voilà below jQuery:
 <script type="text/javascript" src="voila.pkgd.min.js"></script>
 ```
 
-Or install using [Bower](http://bower.io): `bower install voila`
+## Bower
+
+Voilà can also be installed using [Bower](http://bower.io):
+
+```
+bower install voila
+```
 
 ## Usage
 
