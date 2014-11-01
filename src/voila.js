@@ -4,7 +4,7 @@ function Voila(elements, opts, cb) {
   }
 
   var argTypeOne = $.type(arguments[1]),
-      options    = (argTypeOne === 'object' ? arguments[1] : {});
+      options    = (argTypeOne === 'object' ? arguments[1] : {}),
       callback   = argTypeOne === 'function' ? arguments[1] :
                    $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
@@ -24,7 +24,7 @@ function Voila(elements, opts, cb) {
   this._add(elements);
 
   return this;
-};
+}
 
 $.extend(Voila.prototype, {
   _add: function(elements) {
@@ -50,11 +50,11 @@ $.extend(Voila.prototype, {
         this.images.push(new ImageReady(element,
           // success
           $.proxy(function(image) {
-            this._progress(image)
+            this._progress(image);
           }, this),
           // error
           $.proxy(function(image) {
-            this._progress(image)
+            this._progress(image);
           }, this),
           // options
           this.options

@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.2
+ * Voilà - v1.0.3
  * (c) 2014 Nick Stakenburg
  *
  * MIT License
@@ -18,7 +18,7 @@ var _slice = Array.prototype.slice;
 
 var Supports = {
   naturalWidth: (function() {
-    return ('naturalWidth' in new Image())
+    return ('naturalWidth' in new Image());
   })()
 };
 
@@ -28,7 +28,7 @@ function Voila(elements, opts, cb) {
   }
 
   var argTypeOne = $.type(arguments[1]),
-      options    = (argTypeOne === 'object' ? arguments[1] : {});
+      options    = (argTypeOne === 'object' ? arguments[1] : {}),
       callback   = argTypeOne === 'function' ? arguments[1] :
                    $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
@@ -48,7 +48,7 @@ function Voila(elements, opts, cb) {
   this._add(elements);
 
   return this;
-};
+}
 
 $.extend(Voila.prototype, {
   _add: function(elements) {
@@ -74,11 +74,11 @@ $.extend(Voila.prototype, {
         this.images.push(new ImageReady(element,
           // success
           $.proxy(function(image) {
-            this._progress(image)
+            this._progress(image);
           }, this),
           // error
           $.proxy(function(image) {
-            this._progress(image)
+            this._progress(image);
           }, this),
           // options
           this.options
@@ -160,7 +160,7 @@ $.extend(ImageReady.prototype, {
 
     this.options = $.extend({
       render: true,
-      tickFallbackAfter: 1000
+      pollFallbackAfter: 1000
     }, arguments[3] || {});
 
     // can exit out right away if we have a naturalWidth
@@ -211,7 +211,7 @@ $.extend(ImageReady.prototype, {
   },
 
   poll: function() {
-    this._ticking = setTimeout($.proxy(function() {
+    this._polling = setTimeout($.proxy(function() {
       if (this.img.naturalWidth > 0) {
         this.success();
         return;
@@ -272,9 +272,9 @@ $.extend(ImageReady.prototype, {
       this._fallbackImg.onload = function() { };
     }
 
-    if (this._ticking) {
-      clearTimeout(this._ticking);
-      this._ticking = 0;
+    if (this._polling) {
+      clearTimeout(this._polling);
+      this._polling = null;
     }
   },
 

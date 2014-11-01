@@ -8,7 +8,7 @@ $.extend(ImageReady.prototype, {
 
     this.options = $.extend({
       render: true,
-      tickFallbackAfter: 1000
+      pollFallbackAfter: 1000
     }, arguments[3] || {});
 
     // can exit out right away if we have a naturalWidth
@@ -59,7 +59,7 @@ $.extend(ImageReady.prototype, {
   },
 
   poll: function() {
-    this._ticking = setTimeout($.proxy(function() {
+    this._polling = setTimeout($.proxy(function() {
       if (this.img.naturalWidth > 0) {
         this.success();
         return;
@@ -120,9 +120,9 @@ $.extend(ImageReady.prototype, {
       this._fallbackImg.onload = function() { };
     }
 
-    if (this._ticking) {
-      clearTimeout(this._ticking);
-      this._ticking = 0;
+    if (this._polling) {
+      clearTimeout(this._polling);
+      this._polling = null;
     }
   },
 

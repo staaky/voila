@@ -13,10 +13,10 @@ Get a packaged source file:
 + [voila.pkgd.js](https://raw.githubusercontent.com/staaky/voila/master/voila.pkgd.js)
 + [voila.pkgd.min.js](https://raw.githubusercontent.com/staaky/voila/master/voila.pkgd.min.js)
 
-Include Voilà below jQuery:
+Include Voilà below [jQuery](http://jquery.com):
 
 ```
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="jquery.min.js"></script>
 <script type="text/javascript" src="voila.pkgd.min.js"></script>
 ```
 
