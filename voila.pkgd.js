@@ -145,10 +145,9 @@ $.extend(Voila.prototype, {
 });
 
 // extend jQuery
-$.fn.voila = function(callback, options) {
+$.fn.voila = function() {
   return Voila.apply(Voila, [this].concat(_slice.call(arguments)));
 };
-
 
 var ImageReady = function() { return this.initialize.apply(this, _slice.call(arguments)); };
 $.extend(ImageReady.prototype, {
