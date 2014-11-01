@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.1
+ * Voilà - v1.0.2
  * (c) 2014 Nick Stakenburg
  *
  * MIT License
@@ -22,19 +22,24 @@ var Supports = {
   })()
 };
 
-function Voila(elements, options, callback) {
+function Voila(elements, opts, cb) {
   if (!(this instanceof Voila)) {
-    return new Voila(elements, options, callback);
+    return new Voila(elements, opts, cb);
   }
+
+  var argTypeOne = $.type(arguments[1]),
+      options    = (argTypeOne === 'object' ? arguments[1] : {});
+      callback   = argTypeOne === 'function' ? arguments[1] :
+                   $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
   this.options = $.extend({
     render: true
-  }, $.type(options) == 'object' ? options : callback || {});
+  }, options);
 
   this.deferred = new jQuery.Deferred();
 
   // if there's a callback, push it onto the stack
-  if ($.type(callback) == 'function') {
+  if (callback) {
     this.always(callback);
   }
 

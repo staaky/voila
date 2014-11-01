@@ -1,7 +1,7 @@
 {
   "name": "voila",
   "title": "Voil&agrave;",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
   "keywords": [
     "image",
