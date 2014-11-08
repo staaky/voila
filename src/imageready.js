@@ -1,5 +1,15 @@
-var ImageReady = function() { return this.initialize.apply(this, _slice.call(arguments)); };
+// ImageReady (standalone)
+var ImageReady = function() {
+  return this.initialize.apply(this, Array.prototype.slice.call(arguments));
+};
+
 $.extend(ImageReady.prototype, {
+  supports: {
+    naturalWidth: (function() {
+      return ('naturalWidth' in new Image());
+    })()
+  },
+
   initialize: function(img, successCallback, errorCallback) {
     this.img = $(img)[0];
     this.successCallback = successCallback;
@@ -27,7 +37,7 @@ $.extend(ImageReady.prototype, {
     // fallback for browsers without support for naturalWidth/Height
     // IE7-8
     // we also use it to wait for complete image loading
-    if (!Supports.naturalWidth || this.options.render) {
+    if (!this.supports.naturalWidth || this.options.render) {
       // timeout allows callbacks to be attached
       setTimeout($.proxy(this.fallback, this));
       return;
@@ -102,7 +112,7 @@ $.extend(ImageReady.prototype, {
     img.onload = $.proxy(function() {
       img.onload = function() {};
 
-      if (!Supports.naturalWidth) {
+      if (!this.supports.naturalWidth) {
         this.img.naturalWidth = img.width;
         this.img.naturalHeight = img.height;
       }

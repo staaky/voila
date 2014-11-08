@@ -122,5 +122,5 @@ $.extend(Voila.prototype, {
 
 // extend jQuery
 $.fn.voila = function() {
-  return Voila.apply(Voila, [this].concat(_slice.call(arguments)));
+  return Voila.apply(Voila, [this].concat(Array.prototype.slice.call(arguments)));
 };

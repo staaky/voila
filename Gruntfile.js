@@ -17,10 +17,6 @@ module.exports = function(grunt) {
         src: [
         'src/intro.js',
 
-        // helpers
-        'src/helpers/helpers.js',
-        'src/helpers/supports.js',
-
         // core
         'src/voila.js',
         'src/imageready.js',

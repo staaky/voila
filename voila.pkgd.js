@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.3
+ * Voilà - v1.0.4
  * (c) 2014 Nick Stakenburg
  *
  * MIT License
@@ -13,14 +13,6 @@
     window.Voila = factory(jQuery);
   }
 }(function($) {
-
-var _slice = Array.prototype.slice;
-
-var Supports = {
-  naturalWidth: (function() {
-    return ('naturalWidth' in new Image());
-  })()
-};
 
 function Voila(elements, opts, cb) {
   if (!(this instanceof Voila)) {
@@ -146,11 +138,21 @@ $.extend(Voila.prototype, {
 
 // extend jQuery
 $.fn.voila = function() {
-  return Voila.apply(Voila, [this].concat(_slice.call(arguments)));
+  return Voila.apply(Voila, [this].concat(Array.prototype.slice.call(arguments)));
 };
 
-var ImageReady = function() { return this.initialize.apply(this, _slice.call(arguments)); };
+// ImageReady (standalone)
+var ImageReady = function() {
+  return this.initialize.apply(this, Array.prototype.slice.call(arguments));
+};
+
 $.extend(ImageReady.prototype, {
+  supports: {
+    naturalWidth: (function() {
+      return ('naturalWidth' in new Image());
+    })()
+  },
+
   initialize: function(img, successCallback, errorCallback) {
     this.img = $(img)[0];
     this.successCallback = successCallback;
@@ -178,7 +180,7 @@ $.extend(ImageReady.prototype, {
     // fallback for browsers without support for naturalWidth/Height
     // IE7-8
     // we also use it to wait for complete image loading
-    if (!Supports.naturalWidth || this.options.render) {
+    if (!this.supports.naturalWidth || this.options.render) {
       // timeout allows callbacks to be attached
       setTimeout($.proxy(this.fallback, this));
       return;
@@ -253,7 +255,7 @@ $.extend(ImageReady.prototype, {
     img.onload = $.proxy(function() {
       img.onload = function() {};
 
-      if (!Supports.naturalWidth) {
+      if (!this.supports.naturalWidth) {
         this.img.naturalWidth = img.width;
         this.img.naturalHeight = img.height;
       }
