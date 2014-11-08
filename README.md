@@ -4,7 +4,7 @@ Voilà is a [jQuery](http://jquery.com) plugin that provides callbacks for image
 
 Its API is inspired by [imagesLoaded](http://imagesloaded.desandro.com). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
 
-Voilà also comes with an alternative loading method that allows callbacks to be used as soon as naturalWidth/Height are available, even while images are still rendering.
+Voilà uses a polling method that triggers callbacks as soon as `naturalWidth` is available. This makes it faster than methods that wait for `onload` to fire.
 
 ## Install
 
@@ -37,7 +37,7 @@ $(element).voila([options][, callback]);
 ```js
 // For example
 $('#container').voila(callback);
-$('#container').voila({ render: false }, callback);
+$('#container').voila({ natural: false }, callback);
 ```
 
 + `options` _Object_ - (optional) An object with Options
@@ -72,11 +72,10 @@ $('#container').voila()
 
 Options can be set as the first parameter.
 
-+ `render` - _Boolean_ - Wait for images to fully render before using callbacks when `true` (the default), or as soon as naturalWidth/Height are available when `false`. Using `false` means images could still be rendering as callbacks are called.
++ `natural` - _Boolean_ - Callback are called as soon as `naturalWidth/Height` are available when `true` (the default). Using `false` will call callbacks as soon as `onload` fires on a detached Image object, which is slower, but can give the image more time to render.
 
 ```js
-$('#container').voila({ render: false }, function(instance) {
-  console.log('naturalWidth/Height available, some images might still be rendering');
+$('#container').voila({ natural: true }, function(instance) {
   $.each(instance.images, function(i, image) {
     var img = image.img;
     console.log(img.src + ' = ' + img.naturalWidth + 'x' + img.naturalHeight);

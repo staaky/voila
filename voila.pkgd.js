@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.4
+ * Voilà - v1.0.5
  * (c) 2014 Nick Stakenburg
  *
  * MIT License
@@ -25,7 +25,7 @@ function Voila(elements, opts, cb) {
                    $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
   this.options = $.extend({
-    render: true
+    natural: true
   }, options);
 
   this.deferred = new jQuery.Deferred();
@@ -160,29 +160,29 @@ $.extend(ImageReady.prototype, {
     this.isLoaded = false;
 
     this.options = $.extend({
-      render: true,
+      natural: true,
       pollFallbackAfter: 1000
     }, arguments[3] || {});
+
+
+    // a fallback is used when we're not polling for naturalWidth/Height
+    // IE6-7 also use this to add support for naturalWidth/Height
+    if (!this.supports.naturalWidth || !this.options.natural) {
+      // timeout allows callbacks to be attached
+      setTimeout($.proxy(this.fallback, this));
+      return;
+    }
 
     // can exit out right away if we have a naturalWidth
     if (this.img.complete && $.type(this.img.naturalWidth) != 'undefined') {
       setTimeout($.proxy(function() {
         if (this.img.naturalWidth > 0) {
           this.isLoaded = true;
-          this.successCallback(this);
+          this.success();
         } else {
-          this.errorCallback(this);
+          this.error();
         }
       }, this));
-      return;
-    }
-
-    // fallback for browsers without support for naturalWidth/Height
-    // IE7-8
-    // we also use it to wait for complete image loading
-    if (!this.supports.naturalWidth || this.options.render) {
-      // timeout allows callbacks to be attached
-      setTimeout($.proxy(this.fallback, this));
       return;
     }
 
@@ -208,6 +208,7 @@ $.extend(ImageReady.prototype, {
     this._time = 0;
     this._delay = this.intervals[this._ipos][1];
 
+    // start polling
     this.poll();
   },
 
@@ -265,7 +266,7 @@ $.extend(ImageReady.prototype, {
 
     img.onerror = $.proxy(this.error, this);
 
-    img.src = $(this.img).attr('src');
+    img.src = this.img.src;
   },
 
   abort: function() {

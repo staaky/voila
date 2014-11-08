@@ -28,7 +28,7 @@ var Demo = {
 
     Progress.initialize({ items: this._items });
 
-    this.renderChange();
+    this.naturalChange();
 
     this.startObserving();
   },
@@ -40,7 +40,7 @@ var Demo = {
   startObserving: function() {
     $('#add').on('click', $.proxy(this.add, this));
     $('#reset').on('click', $.proxy(this.reset, this));
-    $('#render').on('change', $.proxy(this.renderChange, this));
+    $('#natural').on('change', $.proxy(this.naturalChange, this));
   },
 
   add: function() {
@@ -95,9 +95,9 @@ var Demo = {
     }
   },
 
-  renderChange: function() {
+  naturalChange: function() {
     this.setOptions({
-      render: $('#render').prop('checked')
+      natural: $('#natural').prop('checked')
     });
   }
 };
