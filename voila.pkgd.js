@@ -141,7 +141,10 @@ $.fn.voila = function() {
   return Voila.apply(Voila, [this].concat(Array.prototype.slice.call(arguments)));
 };
 
-// ImageReady (standalone)
+/* ImageReady (standalone) - part of Voilà
+ * http://github.com/staaky/voila
+ * MIT License
+ */
 var ImageReady = function() {
   return this.initialize.apply(this, Array.prototype.slice.call(arguments));
 };
@@ -153,6 +156,7 @@ $.extend(ImageReady.prototype, {
     })()
   },
 
+  // NOTE: setTimeouts allow callbacks to be attached
   initialize: function(img, successCallback, errorCallback) {
     this.img = $(img)[0];
     this.successCallback = successCallback;
@@ -164,11 +168,9 @@ $.extend(ImageReady.prototype, {
       pollFallbackAfter: 1000
     }, arguments[3] || {});
 
-
     // a fallback is used when we're not polling for naturalWidth/Height
     // IE6-7 also use this to add support for naturalWidth/Height
     if (!this.supports.naturalWidth || !this.options.natural) {
-      // timeout allows callbacks to be attached
       setTimeout($.proxy(this.fallback, this));
       return;
     }
@@ -187,7 +189,6 @@ $.extend(ImageReady.prototype, {
     }
 
     // we instantly bind to onerror so we catch right away
-    // timeout allows callbacks to be attached
     $(this.img).bind('error', $.proxy(function() {
       setTimeout($.proxy(function() {
         this.error();
