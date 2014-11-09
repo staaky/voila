@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.5
+ * Voilà - v1.0.6
  * (c) 2014 Nick Stakenburg
  *
  * MIT License
@@ -179,7 +179,6 @@ $.extend(ImageReady.prototype, {
     if (this.img.complete && $.type(this.img.naturalWidth) != 'undefined') {
       setTimeout($.proxy(function() {
         if (this.img.naturalWidth > 0) {
-          this.isLoaded = true;
           this.success();
         } else {
           this.error();
