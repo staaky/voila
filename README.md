@@ -2,7 +2,7 @@
 
 Voilà is a [jQuery](http://jquery.com) plugin that provides callbacks for images, letting you know when they've loaded.
 
-Its API is inspired by [imagesLoaded](http://imagesloaded.desandro.com). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
+Its API is inspired by [imagesLoaded](https://github.com/desandro/imagesloaded). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
 
 Voilà uses a polling method that triggers callbacks as soon as `naturalWidth` is available. This makes it faster than methods that wait for `onload` to fire.
 
@@ -100,7 +100,7 @@ var voila = $('#container').voila();
 
 Within the callbacks the `voila` instance is always the first argument, the second one can be an `image` object.
 
-+ `image.img` _ImageElement_ - the `img` element
++ `image.img` _ImageElement_ - The `img` element as found in the DOM
 + `image.isLoaded` _Boolean_ - `true` when succesfully loaded
 
 Here's how to find out which images have succesfully loaded within the always callback:
