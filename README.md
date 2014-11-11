@@ -72,7 +72,7 @@ $('#container').voila()
 
 Options can be set as the first parameter.
 
-+ `natural` - _Boolean_ - Callback are called as soon as `naturalWidth/Height` are available when `true` (the default). Using `false` will call callbacks as soon as `onload` fires on a detached Image object, which is slower, but can give the image more time to render.
++ `natural` - _Boolean_ - Callbacks are called as soon as `naturalWidth/Height` are available when `true` (the default). Using `false` will call callbacks as soon as `onload` fires on a detached Image object, which is slower, but can give the image more time to render.
 
 ```js
 $('#container').voila({ natural: true }, function(instance) {
@@ -91,8 +91,8 @@ A `voila` instance can be stored, exposing some extra properties and functions:
 var voila = $('#container').voila();
 ```
 
-+ `voila.images` _Array_ - contains an `image` object for each `img` element found
-+ `voila.abort()` - aborts all callbacks
++ `voila.images` _Array_ - Contains an `image` object for each `img` element found
++ `voila.abort()` - Aborts all callbacks
 + `voila.always(callback)` - Add a callback called after all images finished loading
 + `voila.progress(callback)` - Add a callback called as each image finishes loading
 + `voila.fail(callback)` - Add a callback called if one or more images fail to load
