@@ -73,7 +73,8 @@ Options can be set as the first parameter.
 + `natural` - _Boolean_ - Callbacks are called as soon as `naturalWidth/Height` are available when `true` (the default). Using `false` will call callbacks as soon as `onload` fires on a detached Image object, which is slower, but can give the image more time to render.
 
 ```js
-$('#container').voila({ natural: true }, function(instance) {
+// give images more time to render with natural:false
+$('#container').voila({ natural: false }, function(instance) {
   $.each(instance.images, function(i, image) {
     var img = image.img;
     console.log(img.src + ' = ' + img.naturalWidth + 'x' + img.naturalHeight);
