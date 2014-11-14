@@ -35,7 +35,7 @@ $(element).voila([options][, callback]);
 ```js
 // For example
 $('#container').voila(callback);
-$('#container').voila({ natural: false }, callback);
+$('#container').voila({ method: 'onload' }, callback);
 ```
 
 + `options` - _Object_ - (optional) An object with Options
