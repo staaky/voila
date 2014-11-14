@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.0.7
+ * Voilà - v1.1.0
  * (c) 2014 Nick Stakenburg
  *
  * http://voila.nickstakenburg.com
@@ -27,7 +27,7 @@ function Voila(elements, opts, cb) {
                    $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
   this.options = $.extend({
-    natural: true
+    method: 'naturalWidth'
   }, options);
 
   this.deferred = new jQuery.Deferred();
@@ -166,13 +166,13 @@ $.extend(ImageReady.prototype, {
     this.isLoaded = false;
 
     this.options = $.extend({
-      natural: true,
+      method: 'naturalWidth',
       pollFallbackAfter: 1000
     }, arguments[3] || {});
 
     // a fallback is used when we're not polling for naturalWidth/Height
     // IE6-7 also use this to add support for naturalWidth/Height
-    if (!this.supports.naturalWidth || !this.options.natural) {
+    if (!this.supports.naturalWidth || this.options.method == 'onload') {
       setTimeout($.proxy(this.fallback, this));
       return;
     }
