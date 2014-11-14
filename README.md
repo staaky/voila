@@ -73,12 +73,17 @@ Options can be set as the first parameter.
 + `method` - _String_ - The loading method, the default is `'naturalWidth'` which calls callbacks as soon as `naturalWidth` and `naturalHeight` are available. Images will have dimensions at that point, but could still be in the process of rendering. The alternative is `'onload'` which calls callbacks as soon as `onload` fires on a detached Image object, this is slower, but can give images more time to render.
 
 ```js
-// give images more time to render by waiting for onload
-$('#container').voila({ method: 'onload' }, function(instance) {
+// callback as soon as naturalWidth & naturalHeight are available (default)
+$('#container').voila({ method: 'naturalWidth' }, function(instance) {
   $.each(instance.images, function(i, image) {
     var img = image.img;
     console.log(img.src + ' = ' + img.naturalWidth + 'x' + img.naturalHeight);
   });
+});
+
+// give images more time to render by waiting for onload
+$('#container').voila({ method: 'onload' }, function(instance) {
+  console.log('All images have finished loading');
 });
 ```
 
