@@ -46,7 +46,7 @@ a { color: #0088cc;
 }
 a:hover { text-decoration: underline; }
 
-body > * { max-width: 800px; }
+body > * { max-width: 820px; }
 
 .footer-by {
   padding-top: 32px;
