@@ -1,5 +1,5 @@
 /* ImageReady (standalone) - part of Voilà
- * http://github.com/staaky/voila
+ * http://voila.nickstakenburg.com
  * MIT License
  */
 var ImageReady = function() {

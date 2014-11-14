@@ -15,9 +15,112 @@ html {
 body {
   font: 18px/32px Georgia, Times, "Times New Roman", serif;
   color: #333;
+  padding: 30px;
 }
 
-body { padding: 10px; }
+h1, h2 {
+  float: left;
+  clear: both;
+  width: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+h1 { font-size: 28px; line-height: 34px; margin-bottom: 34px; }
+h2 {
+  font-size: 26px;
+  line-height: 32px;
+  margin-bottom: 32px;
+  padding-top: 32px;
+  border-top: 3px solid #eaeaea;
+}
+
+p { float: left; clear: both; width: 100%; margin-bottom: 32px; }
+
+a { color: #0088cc;
+  text-decoration: none;
+  outline-style: none;
+  background-color: #f0f8fd;
+  padding: 3px 5px;
+}
+a:hover { text-decoration: underline; }
+
+body > * { max-width: 800px; }
+
+.footer-by {
+  padding-top: 32px;
+  border-top: 3px solid #eaeaea;
+}
+
+.ic {
+  padding: 5px 7px;
+  font-size: 13px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 0 1px;
+  border-radius: 4px;
+  color: #555;
+  border: 1px solid #ccc;
+  background-color: #ececec;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);/*inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.05);*/
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  font-family: "Lucida Console", "Droid Sans Mono", "Courier New", "Lucida Sans Unicode", monospace, sans-serif;
+}
+.ic a { background: none; padding: 0; margin: 0; }
+
+
+#logo h1 { display: none; }
+#logo {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 125px;
+  background: url('voila_logo.png') 0 0 no-repeat;
+  margin-bottom: 20px;
+}
+.svg #logo {
+  background: url('voila_logo.svg') 0 0 no-repeat;
+}
+
+#demo {
+  float: left;
+  clear: both;
+  max-width: 100% !important;
+  width: 100%;
+}
+
+/* Notes: used in docs and account page */
+.note {
+  float: left;
+  clear: both;
+  color: #666;
+  font-size: 15px;
+  position: relative;
+  margin-bottom: 32px;
+  background: #ececec;
+  border-radius: 5px;
+}
+.note .padder {
+  padding: 12px 20px 12px 40px;
+  float: left;
+}
+.note .ic { font-size: 11px; background: #e6e6e6; color: #707070; }
+.note .fa {
+  position: absolute;
+  top: 15px;
+  left: 12px;
+  font-size: 25px;
+}
+.note .fa {
+  top: 18px;
+  left: 14px;
+  font-size: 18px;
+}
+.lt-ie8 .note .padder { padding-left: 20px; }
+.lt-ie8 .note .fa { display: none; }
+
+
 
 #progress {
   opacity: 0;
@@ -29,8 +132,9 @@ body { padding: 10px; }
   color: #fff;
   padding: 20px;
   border-radius: 10px;
+  z-index: 2;
 }
-.lt-ie9 #progress { display: none; }
+.lt-ie7 #progress { display: none; }
 
 .controls,
 .buttons,
@@ -49,6 +153,26 @@ button {
   line-height: 24px;
   padding: 10px 12px;
   margin: 0 5px 5px 0;
+  cursor: pointer;
+  border-radius: 5px;
+  display: block;
+  border: 1px solid #999;
+  color: #333;
+  text-decoration: none;
+  text-align: center;
+  background-color: #e6e6e6;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
+  text-shadow: 0 -1px 0 rgba(255,255,255,.8);
+  outline: none;
+}
+button:hover,
+button a:hover {
+  background-color: #d6d6d6;
+}
+button:active {
+  background-color: #c5dbf1;
+  border-color: #006ccc;
+  color: #002233;
 }
 
 .checkboxes {
@@ -69,6 +193,16 @@ button {
   float: left;
   clear: both;
   width: 100%;
+  margin-bottom: 32px;
+  background: #fff;
+  border: 0;
+}
+#images.is-empty {
+  width: auto;
+  width: 121px;
+  border: 2px dashed #ccc;
+  height: 151px;
+  box-sizing: content-box;
 }
 #images img {
   max-height: 150px;
@@ -89,8 +223,7 @@ button {
 }
 
 #images div,
-#images img,
-#progress {
+#images img {
   -webkit-transition: opacity .4s;
   transition: opacity .4s;
 }
@@ -126,4 +259,57 @@ button {
   padding: 3px 5px;
   border-radius: 4px;
   font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+}
+
+.github {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  overflow: hidden;
+}
+
+.github .ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: #e8341a;
+  margin: 0;
+}
+.github:hover .ribbon {
+  background: #1492e2;
+}
+
+.github i {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  height: 40px;
+  background: url('github_mark.png') 50% 50% no-repeat;
+  cursor: pointer;
+}
+.svg .github i {
+  background: url('github_mark.svg') 50% 50% no-repeat;
+}
+
+@supports (transform:rotate(45deg)) {
+  .github {
+    width: 90px;
+    height: 90px;
+  }
+  .github .ribbon {
+    margin: 0;
+    margin-right: -60px;
+    width: 200px;
+    height: 40px;
+    transform:rotate(45deg);
+  }
+  .github i {
+    margin: 10px 10px 0 0;
+  }
 }

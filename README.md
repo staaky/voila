@@ -2,9 +2,9 @@
 
 Voilà is a [jQuery](http://jquery.com) plugin that provides callbacks for images, letting you know when they've loaded.
 
-Its API is inspired by [imagesLoaded](https://github.com/desandro/imagesloaded). Voilà extends this by adding useful methods like `abort()` and support for `naturalWidth/Height` in all browsers, making it compatible with IE6 and IE7.
+[voila.nickstakenburg.com](http://voila.nickstakenburg.com)
 
-Voilà uses a polling method that triggers callbacks as soon as `naturalWidth` is available. This makes it faster than methods that wait for `onload` to fire.
+Voilà has an API inspired by [imagesLoaded](https://github.com/desandro/imagesloaded), extended with useful methods like `abort()` and support for `naturalWidth` in all browsers which makes it compatible with *IE6 & IE7*. Multiple loading methods are supported, by default callbacks are triggered as soon as naturalWidth is available, making Voilà faster than alternatives that wait for `onload` to fire.
 
 ## Install
 
@@ -20,9 +20,7 @@ Include Voilà below [jQuery](http://jquery.com):
 <script type="text/javascript" src="voila.pkgd.min.js"></script>
 ```
 
-## Bower
-
-Voilà can also be installed using [Bower](http://bower.io):
+Alternatively Voilà can be installed using [Bower](http://bower.io):
 
 ```
 bower install voila
@@ -40,8 +38,8 @@ $('#container').voila(callback);
 $('#container').voila({ natural: false }, callback);
 ```
 
-+ `options` _Object_ - (optional) An object with Options
-+ `callback` _Function_ - (optional) A function called when all images have been loaded
++ `options` - _Object_ - (optional) An object with Options
++ `callback` - _Function_ - (optional) A function called when all images have been loaded
 
 Using a callback is the same as using `always()`:
 
@@ -91,7 +89,7 @@ A `voila` instance can be stored, exposing some extra properties and functions:
 var voila = $('#container').voila();
 ```
 
-+ `voila.images` _Array_ - Contains an `image` object for each `img` element found
++ `voila.images` - _Array_ - Contains an `image` object for each `img` element found
 + `voila.abort()` - Aborts all callbacks
 + `voila.always(callback)` - Add a callback called after all images finished loading
 + `voila.progress(callback)` - Add a callback called as each image finishes loading

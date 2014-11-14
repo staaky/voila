@@ -13,9 +13,17 @@ var Browser = (function(uA) {
 
 (function(IE) {
   if (!IE) return;
-  if (IE < 7) $('html').addClass('lt-ie7');
-  if (IE < 9) $('html').addClass('lt-ie9');
+  for (var v = 9;v>=7;v--) {
+    if (Browser.IE < v) $('html').addClass('lt-ie' + v);
+  }
 })(Browser.IE);
+
+
+var Support = {
+  svg: (!!document.createElementNS && !!document.createElementNS('http://www.w3.org/2000/svg', 'svg').createSVGRect)
+};
+
+$('html').addClass((Support.svg ? '' : 'no-') + 'svg');
 
 
 var Demo = {
@@ -27,6 +35,8 @@ var Demo = {
     this._debug = true;
 
     Progress.initialize({ items: this._items });
+
+    this.reset();
 
     this.naturalChange();
 
@@ -46,9 +56,12 @@ var Demo = {
   add: function() {
     this.abort();
 
-    this.images.prepend(Images.getFragment(this._items));
+
+    this.images.prepend(Images.getFragment(this._items))
+               .removeClass('is-empty');
 
     var images = this.images.find('.is-loading img');
+
 
     // update the max value in the progress bar
     // multiple clicks can increase the amount
@@ -66,7 +79,6 @@ var Demo = {
         Progress.hide();
       }, this));
 
-
     // add dimensions
     if ($('#dimensions').prop('checked')) {
       this.voila.progress(function(instance, image) {
@@ -81,7 +93,7 @@ var Demo = {
   },
 
   reset: function() {
-    this.images.html('');
+    this.images.html('').addClass('is-empty');
     this.abort();
     this._loading = 0;
     Progress.reset(true);
@@ -135,17 +147,22 @@ var Progress = {
   })(),
 
   initialize: function() {
-    this.element = $('#progress');
-    this.progress = this.element.find('progress');
+    $(document.body).append(this.element = $('<div>')
+      .attr({ id: 'progress' })
+    );
+
+    if (this._supported) {
+      this.element.append(this.progress = $('<progress>'));
+    }
 
     this.options = $.extend({
-      items: this._supported ? parseInt(this.progress.attr('max')) : 0
+      items: this._supported ? 6 : 0
     }, arguments[0] || {});
 
     this._max = this.options.items;
     this._at = 0;
 
-    this.hide();
+    this.element.hide();
   },
 
   setMax: function(max) {
@@ -158,7 +175,7 @@ var Progress = {
   },
 
   update: function(value) {
-    if (this._supported) {
+    if (this.progress) {
       this.progress.attr({ value: value, max: this._max });
     } else {
       this.element.html(value + ' / ' + this._max);
@@ -172,8 +189,11 @@ var Progress = {
     this.update(this._at);
   },
 
-  show: function() { this.element.css({ opacity: 1 }); },
-  hide: function() { this.element.css({ opacity: 0 }); }
+  show: function() {
+    if (Browser.IE && Browser.IE < 7) return;
+    this.element.stop(true).fadeTo(200, 1);
+  },
+  hide: function() { this.element.stop(true).fadeOut(); }
 };
 
 // start

@@ -1,6 +1,8 @@
 /*!
- * Voilà - v1.0.6
+ * Voilà - v1.0.7
  * (c) 2014 Nick Stakenburg
+ *
+ * http://voila.nickstakenburg.com
  *
  * MIT License
  */
@@ -142,7 +144,7 @@ $.fn.voila = function() {
 };
 
 /* ImageReady (standalone) - part of Voilà
- * http://github.com/staaky/voila
+ * http://voila.nickstakenburg.com
  * MIT License
  */
 var ImageReady = function() {

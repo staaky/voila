@@ -2,6 +2,8 @@
  * Voilà - v<%= pkg.version %>
  * (c) <%= grunt.template.today("yyyy") %> Nick Stakenburg
  *
+ * http://voila.nickstakenburg.com
+ *
  * MIT License
  */
 

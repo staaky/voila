@@ -1,7 +1,7 @@
 {
   "name": "voila",
   "title": "Voil&agrave;",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
   "keywords": [
     "image",
@@ -12,6 +12,7 @@
     "callback",
     "callbacks"
   ],
+  "homepage": "http://voila.nickstakenburg.com",
   "author": {
     "name": "Nick Stakenburg",
     "url": "http://nickstakenburg.com"
