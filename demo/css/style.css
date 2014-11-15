@@ -26,6 +26,7 @@ h1, h2 {
   font-weight: bold;
   color: #333;
   margin: 0;
+  max-width: 100% !important;
 }
 h1 { font-size: 28px; line-height: 34px; margin-bottom: 34px; }
 h2 {
@@ -52,23 +53,6 @@ body > * { max-width: 820px; }
   padding-top: 32px;
   border-top: 3px solid #eaeaea;
 }
-
-.ic {
-  padding: 5px 7px;
-  font-size: 13px;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  margin: 0 1px;
-  border-radius: 4px;
-  color: #555;
-  border: 1px solid #ccc;
-  background-color: #ececec;
-  box-shadow: inset 0 1px 2px rgba(0,0,0,.1);/*inset 0 1px 0 rgba(255,255,255,.5), inset 0 -1px 0 rgba(255,255,255,.2), 0 1px 0 rgba(0,0,0,.05);*/
-  text-shadow: 0 1px 0 rgba(255,255,255,.8);
-  font-family: "Lucida Console", "Droid Sans Mono", "Courier New", "Lucida Sans Unicode", monospace, sans-serif;
-}
-.ic a { background: none; padding: 0; margin: 0; }
-
 
 #logo h1 { display: none; }
 #logo {
@@ -160,17 +144,17 @@ button {
   color: #333;
   text-decoration: none;
   text-align: center;
-  background-color: #e6e6e6;
+  background: #e6e6e6;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.3);
-  text-shadow: 0 -1px 0 rgba(255,255,255,.8);
+  text-shadow: none;
   outline: none;
 }
 button:hover,
 button a:hover {
-  background-color: #d6d6d6;
+  background: #d6d6d6;
 }
 button:active {
-  background-color: #c5dbf1;
+  background: #c5dbf1;
   border-color: #006ccc;
   color: #002233;
 }
@@ -238,6 +222,7 @@ button:active {
   background-image: url('error.png');
   width: 120px;
 }
+.svg #images .is-broken { background-image: url('error.svg'); }
 .lt-ie7 #images .is-broken { background-image: none; }
 
 #images .is-loading img,

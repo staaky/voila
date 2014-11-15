@@ -53,7 +53,7 @@ Additional callbacks can be attached using `always()`, `progress()`, `fail()` an
 $('#container').voila()
   .always(function(instance) {
     console.log('ALWAYS - All images have finished loading');
-  )
+  })
   .progress(function(instance, image) {
     var status = image.isLoaded ? 'loaded' : 'broken';
     console.log('PROGRESS - Image ' + status + ': ' + image.img.src);
