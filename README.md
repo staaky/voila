@@ -4,7 +4,7 @@ Voilà is a [jQuery](http://jquery.com) plugin that provides callbacks for image
 
 [voila.nickstakenburg.com](http://voila.nickstakenburg.com)
 
-Voilà has an API inspired by [imagesLoaded](https://github.com/desandro/imagesloaded), extended with useful methods like `abort()` and support for `naturalWidth` and `naturalHeight` in all browsers, which makes it compatible with *IE6 & IE7*. Multiple loading methods are supported, by default callbacks are triggered as soon as naturalWidth is available, making Voilà faster than alternatives that wait for `onload` to fire.
+Voilà has an API inspired by [imagesLoaded](https://github.com/desandro/imagesloaded), extended with useful methods like `abort()` and support for `naturalWidth` and `naturalHeight` in all browsers, which makes it compatible with *IE6 & IE7*. Multiple loading methods are supported. Allowing callbacks to be triggered as soon as `naturalWidth` is available, making Voilà faster than alternatives that wait for `onload` to fire.
 
 ## Install
 
@@ -70,10 +70,10 @@ $('#container').voila()
 
 Options can be set as the first parameter.
 
-+ `method` - _String_ - The loading method, the default is `'naturalWidth'` which calls callbacks as soon as `naturalWidth` and `naturalHeight` are available. Images will have dimensions at that point, but could still be in the process of rendering. The alternative is `'onload'` which calls callbacks as soon as `onload` fires on a detached Image object, this is slower, but can give images more time to render.
++ `method` - _String_ - The loading method, the default is `'onload'` which calls callbacks as soon as `onload` fires. The alternative is `'naturalWidth'`, which calls callbacks as soon as `naturalWidth` is available, images will have dimensions at that point but could still be in the process of rendering. Don't use `'naturalWidth'` when changing the `src` attribute of an image, it becomes unreliable at that point, use `'onload'` instead.
 
 ```js
-// callback as soon as naturalWidth & naturalHeight are available (default)
+// callback as soon as naturalWidth & naturalHeight are available
 $('#container').voila({ method: 'naturalWidth' }, function(instance) {
   $.each(instance.images, function(i, image) {
     var img = image.img;
@@ -81,7 +81,7 @@ $('#container').voila({ method: 'naturalWidth' }, function(instance) {
   });
 });
 
-// give images more time to render by waiting for onload
+// give images more time to render by waiting for onload (default)
 $('#container').voila({ method: 'onload' }, function(instance) {
   console.log('All images have finished loading');
 });

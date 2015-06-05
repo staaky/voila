@@ -38,7 +38,7 @@ var Demo = {
 
     this.reset();
 
-    this.onloadChange();
+    this.naturalWidthChange();
 
     this.startObserving();
   },
@@ -50,7 +50,7 @@ var Demo = {
   startObserving: function() {
     $('#add').on('click', $.proxy(this.add, this));
     $('#reset').on('click', $.proxy(this.reset, this));
-    $('#onload').on('change', $.proxy(this.onloadChange, this));
+    $('#naturalWidth').on('change', $.proxy(this.naturalWidthChange, this));
   },
 
   add: function() {
@@ -89,7 +89,6 @@ var Demo = {
         );
       });
     }
-
   },
 
   reset: function() {
@@ -107,9 +106,9 @@ var Demo = {
     }
   },
 
-  onloadChange: function() {
+  naturalWidthChange: function() {
     this.setOptions({
-      method: $('#onload').prop('checked') ? 'onload' : 'naturalWidth'
+      method: $('#naturalWidth').prop('checked') ? 'naturalWidth' : 'onload'
     });
   }
 };

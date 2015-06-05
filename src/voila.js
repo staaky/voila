@@ -9,7 +9,7 @@ function Voila(elements, opts, cb) {
                    $.type(arguments[2]) === 'function' ? arguments[2] : false;
 
   this.options = $.extend({
-    method: 'naturalWidth'
+    method: 'onload'
   }, options);
 
   this.deferred = new jQuery.Deferred();
