@@ -27,7 +27,7 @@ $.extend(ImageReady.prototype, {
 
     // onload and a fallback for no naturalWidth support (IE6-7)
     if (this.options.method == 'onload' || !this.supports.naturalWidth) {
-      setTimeout($.proxy(this.load, this));
+      this.load();
       return;
     }
 
@@ -146,15 +146,17 @@ $.extend(ImageReady.prototype, {
   },
 
   stopPolling: function() {
-    if (!this._polling) return;
-    clearTimeout(this._polling);
-    this._polling = null;
+    if (this._polling) {
+      clearTimeout(this._polling);
+      this._polling = null;
+    }
   },
 
   stopLoading: function() {
-    if (!this._onloadImage) return;
-    this._onloadImage.onload = function() { };
-    this._onloadImage.onerror = function() { };
+    if (this._onloadImage) {
+      this._onloadImage.onload = function() { };
+      this._onloadImage.onerror = function() { };
+    }
   },
 
   stopWaitingForRender: function() {
