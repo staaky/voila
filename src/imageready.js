@@ -2,10 +2,111 @@
  * http://voila.nickstakenburg.com
  * MIT License
  */
+var ImageReady = (function($) {
+
+var Poll = function() {
+  return this.initialize.apply(this, Array.prototype.slice.call(arguments));
+};
+$.extend(Poll.prototype, {
+  initialize: function() {
+    this.options = $.extend({
+      test: function() {},
+      success: function() {},
+      timeout: function() {},
+      callAt: false,
+      intervals: [
+        [0, 0],
+        [1 * 1000, 10],
+        [2 * 1000, 50],
+        [4 * 1000, 100],
+        [20 * 1000, 500]
+      ]
+    }, arguments[0] || {});
+
+    this._test = this.options.test;
+    this._success = this.options.success;
+    this._timeout = this.options.timeout;
+
+    this._ipos = 0;
+    this._time = 0;
+    this._delay = this.options.intervals[this._ipos][1];
+    this._callTimeouts = [];
+
+    this.poll();
+    this._createCallsAt();
+  },
+
+  poll: function() {
+    this._polling = setTimeout($.proxy(function() {
+      if (this._test()) {
+        this.success();
+        return;
+      }
+
+      // update time
+      this._time += this._delay;
+
+      // next i within the interval
+      if (this._time >= this.options.intervals[this._ipos][0]) {
+        // timeout when no next interval
+        if (!this.options.intervals[this._ipos + 1]) {
+          if ($.type(this._timeout) == 'function') {
+            this._timeout();
+          }
+          return;
+        }
+
+        this._ipos++;
+
+        // update to the new bracket
+        this._delay = this.options.intervals[this._ipos][1];
+      }
+
+      this.poll();
+    }, this), this._delay);
+  },
+
+  success: function() {
+    this.abort();
+    this._success();
+  },
+
+  _createCallsAt: function() {
+    if (!this.options.callAt) return;
+
+    // start a timer for each call
+    $.each(this.options.callAt, $.proxy(function(i, at) {
+      var time = at[0], fn = at[1];
+
+      var timeout = setTimeout($.proxy(function() {
+        fn();
+      }, this), time);
+
+      this._callTimeouts.push(timeout);
+    }, this));
+  },
+
+  _stopCallTimeouts: function() {
+    $.each(this._callTimeouts, function(i, timeout) {
+      clearTimeout(timeout);
+    });
+    this._callTimeouts = [];
+  },
+
+  abort: function() {
+    this._stopCallTimeouts();
+
+    if (this._polling) {
+      clearTimeout(this._polling);
+      this._polling = null;
+    }
+  }
+});
+
+
 var ImageReady = function() {
   return this.initialize.apply(this, Array.prototype.slice.call(arguments));
 };
-
 $.extend(ImageReady.prototype, {
   supports: {
     naturalWidth: (function() {
@@ -31,20 +132,6 @@ $.extend(ImageReady.prototype, {
       return;
     }
 
-    this.intervals = [
-      [1 * 1000, 10],
-      [2 * 1000, 50],
-      [4 * 1000, 100],
-      [20 * 1000, 500]
-    ];
-
-    // for testing, 2sec delay
-    //this.intervals = [[20 * 1000, 2000]];
-
-    this._ipos = 0;
-    this._time = 0;
-    this._delay = this.intervals[this._ipos][1];
-
     // start polling
     this.poll();
   },
@@ -55,60 +142,50 @@ $.extend(ImageReady.prototype, {
   // was implemented). The spec even seems to be against
   // this, making polling unreliable in those cases.
   poll: function() {
-    this._polling = setTimeout($.proxy(function() {
-      if (this.img.naturalWidth > 0) {
+    this._poll = new Poll({
+      test: $.proxy(function() {
+        return this.img.naturalWidth > 0;
+      }, this),
+
+      success: $.proxy(function() {
         this.success();
-        return;
-      }
+      }, this),
 
-      // update time spend
-      this._time += this._delay;
+      timeout: $.proxy(function() {
+        // error on timeout
+        this.error();
+      }, this),
 
-      // use load() after waiting as a fallback
-      if (this.options.pollFallbackAfter &&
-          this._time >= this.options.pollFallbackAfter &&
-          !this._usedPollFallback) {
-        this._usedPollFallback = true;
-        this.load();
-      }
-
-      // next i within the interval
-      if (this._time > this.intervals[this._ipos][0]) {
-        // if there's no next interval, we assume
-        // the image errored out
-        if (!this.intervals[this._ipos + 1]) {
-          this.error();
-          return;
-        }
-
-        this._ipos++;
-
-        // update to the new bracket
-        this._delay = this.intervals[this._ipos][1];
-      }
-
-      this.poll();
-    }, this), this._delay);
+      callAt: [
+        [this.options.pollFallbackAfter, $.proxy(function() {
+          this.load();
+        }, this)]
+      ]
+    });
   },
 
   load: function() {
-    var image = new Image();
-    this._onloadImage = image;
+    this._loading = setTimeout($.proxy(function() {
+      var image = new Image();
+      this._onloadImage = image;
 
-    image.onload = $.proxy(function() {
-      image.onload = function() {};
+      image.onload = $.proxy(function() {
+        image.onload = function() {};
 
-      if (!this.supports.naturalWidth) {
-        this.img.naturalWidth = image.width;
-        this.img.naturalHeight = image.height;
-      }
+        if (!this.supports.naturalWidth) {
+          this.img.naturalWidth = image.width;
+          this.img.naturalHeight = image.height;
+          image.naturalWidth = image.width;
+          image.naturalHeight = image.height;
+        }
 
-      this.success();
-    }, this);
+        this.success();
+      }, this);
 
-    image.onerror = $.proxy(this.error, this);
+      image.onerror = $.proxy(this.error, this);
 
-    image.src = this.img.src;
+      image.src = this.img.src;
+    }, this));
   },
 
   success: function() {
@@ -120,7 +197,7 @@ $.extend(ImageReady.prototype, {
     this.abort();
 
     // some time to allow layout updates, IE requires this!
-    this._successRenderTimeout = setTimeout($.proxy(function() {
+    this.waitForRender($.proxy(function() {
       this.isLoaded = true;
       this.successCallback(this);
     }, this));
@@ -134,6 +211,8 @@ $.extend(ImageReady.prototype, {
     // stop loading/polling
     this.abort();
 
+    // don't wait for an actual render on error, just timeout
+    // to give the browser some time to render a broken image icon
     this._errorRenderTimeout = setTimeout($.proxy(function() {
       if (this.errorCallback) this.errorCallback(this);
     }, this));
@@ -146,23 +225,53 @@ $.extend(ImageReady.prototype, {
   },
 
   stopPolling: function() {
-    if (this._polling) {
-      clearTimeout(this._polling);
-      this._polling = null;
+    if (this._poll) {
+      this._poll.abort();
+      this._poll = null;
     }
   },
 
   stopLoading: function() {
+    if (this._loading) {
+      clearTimeout(this._loading);
+      this._loading = null;
+    }
+
     if (this._onloadImage) {
       this._onloadImage.onload = function() { };
       this._onloadImage.onerror = function() { };
     }
   },
 
+  // used by success() only
+  waitForRender: function(callback) {
+    if (this._renderPoll) this._renderPoll.abort();
+
+    this._renderPoll = new Poll({
+      test: $.proxy(function() {
+        // when using onload, the detached image node shoud have
+        // the same dimensions as the <img> in the DOM to guarantee
+        // a complete render.
+        // IE 11 can have situations where the detached image is loaded
+        // but rendering hasn't completed on the <img> with the same src,
+        // this guards against that.
+        if (this.options.method == 'onload') {
+          return this.img.naturalWidth == this._onloadImage.naturalWidth
+            && this.img.naturalHeight == this._onloadImage.naturalHeight;
+        } else {
+          // otherwise we used naturalWidth an might not have a detached
+          // image that rendered successfully.
+          return true;
+        }
+      }, this),
+      success: callback
+    });
+  },
+
   stopWaitingForRender: function() {
-    if (this._successRenderTimeout) {
-      clearTimeout(this._successRenderTimeout);
-      this._successRenderTimeout = null;
+    if (this._renderPoll) {
+      this._renderPoll.abort();
+      this._renderPoll = null;
     }
 
     if (this._errorRenderTimeout) {
@@ -171,3 +280,6 @@ $.extend(ImageReady.prototype, {
     }
   }
 });
+
+return ImageReady;
+})(jQuery);
