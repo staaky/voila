@@ -245,33 +245,13 @@ $.extend(ImageReady.prototype, {
 
   // used by success() only
   waitForRender: function(callback) {
-    if (this._renderPoll) this._renderPoll.abort();
-
-    this._renderPoll = new Poll({
-      test: $.proxy(function() {
-        // when using onload, the detached image node shoud have
-        // the same dimensions as the <img> in the DOM to guarantee
-        // a complete render.
-        // IE 11 can have situations where the detached image is loaded
-        // but rendering hasn't completed on the <img> with the same src,
-        // this guards against that.
-        if (this.options.method == 'onload') {
-          return this.img.naturalWidth == this._onloadImage.naturalWidth
-            && this.img.naturalHeight == this._onloadImage.naturalHeight;
-        } else {
-          // otherwise we used naturalWidth an might not have a detached
-          // image that rendered successfully.
-          return true;
-        }
-      }, this),
-      success: callback
-    });
+    this._renderTimeout = setTimeout(callback);
   },
 
   stopWaitingForRender: function() {
-    if (this._renderPoll) {
-      this._renderPoll.abort();
-      this._renderPoll = null;
+    if (this._renderTimeout) {
+      clearTimeout(this._renderTimeout);
+      this._renderTimeout = null;
     }
 
     if (this._errorRenderTimeout) {
