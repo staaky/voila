@@ -1,7 +1,7 @@
 {
   "name": "@staaky/voila",
   "title": "Voilà",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
   "keywords": [
     "image",
@@ -22,6 +22,7 @@
     "type" : "git",
     "url" : "http://github.com/staaky/voila.git"
   },
+  "main": "voila.pkgd.js",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-concat": "~0.3.0",
