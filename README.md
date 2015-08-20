@@ -24,6 +24,9 @@ Alternatively Voilà can be installed using [Bower](http://bower.io) or npm:
 
 ```
 bower install voila
+```
+
+```
 npm install @staaky/voila
 ```
 
