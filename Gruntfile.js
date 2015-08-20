@@ -15,13 +15,13 @@ module.exports = function(grunt) {
           process: true
         },
         src: [
-        'src/intro.js',
+        'src/umd-head.js',
 
         // core
         'src/voila.js',
         'src/imageready.js',
 
-        'src/outro.js'
+        'src/umd-tail.js'
         ],
         dest: 'voila.pkgd.js'
       }
