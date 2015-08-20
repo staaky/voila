@@ -1,16 +1,19 @@
 {
   "name": "@staaky/voila",
   "title": "Voilà",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "A jQuery plugin that provides callbacks for images, letting you know when they've loaded.",
   "keywords": [
+    "jquery-plugin",
+    "jquery",
     "image",
     "images",
     "loading",
     "loaded",
     "imagesloaded",
     "callback",
-    "callbacks"
+    "callbacks",
+    "voila"
   ],
   "homepage": "http://voila.nickstakenburg.com",
   "author": {
