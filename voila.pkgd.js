@@ -1,5 +1,5 @@
 /*!
- * Voilà - v1.4.0
+ * Voilà - v1.5.0
  * (c) 2015 Nick Stakenburg
  *
  * http://voila.nickstakenburg.com

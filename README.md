@@ -20,10 +20,11 @@ Include Voilà below [jQuery](http://jquery.com):
 <script type="text/javascript" src="voila.pkgd.min.js"></script>
 ```
 
-Alternatively Voilà can be installed using [Bower](http://bower.io):
+Alternatively Voilà can be installed using [Bower](http://bower.io) or npm:
 
 ```
 bower install voila
+npm install @staaky/voila
 ```
 
 ## Usage
